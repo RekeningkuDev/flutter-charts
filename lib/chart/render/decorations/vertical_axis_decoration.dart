@@ -1,6 +1,6 @@
 part of charts_painter;
 
-typedef AxisValueFromIndex = String Function(double index);
+typedef AxisValueFromIndex = String Function(int index);
 
 /// Position of legend in [VerticalAxisDecoration]
 enum VerticalLegendPosition {
@@ -150,7 +150,7 @@ class VerticalAxisDecoration extends DecorationPainter {
       String? _text;
 
       try {
-        _text = valueFromIndex((axisStep * i).toDouble());
+        _text = valueFromIndex((axisStep.toInt() * i));
       } catch (e) {
         /// Invalid value, index out of range can happen here.
       }

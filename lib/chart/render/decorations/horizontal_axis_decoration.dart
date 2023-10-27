@@ -14,8 +14,7 @@ typedef AxisValueFromValueDouble = String Function(double value);
 
 /// Default axis generator, it will just take current index, convert it to string and return it.
 String defaultAxisValue(int index) => '$index';
-
-String defaultAxisValueDouble(double valueDouble) => '$valueDouble';
+String defaultAxisValueDouble(double index) => '$index';
 
 typedef ShowLineForValue = bool Function(int value);
 typedef ShowLineForValueDouble = bool Function(double value);
