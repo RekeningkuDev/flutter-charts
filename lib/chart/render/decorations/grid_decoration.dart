@@ -21,7 +21,8 @@ class GridDecoration extends DecorationPainter {
     EdgeInsets? horizontalValuesPadding,
     String? horizontalAxisUnit,
     AxisValueFromValue verticalAxisValueFromIndex = defaultAxisValue,
-    AxisValueFromValue horizontalAxisValueFromValue = defaultAxisValue,
+    AxisValueFromValueDouble horizontalAxisValueFromValue =
+        defaultAxisValueDouble,
     Color gridColor = Colors.grey,
     double gridWidth = 1.0,
     List<double>? dashArray,
@@ -32,7 +33,7 @@ class GridDecoration extends DecorationPainter {
         HorizontalLegendPosition.end,
     VerticalLegendPosition verticalLegendPosition =
         VerticalLegendPosition.bottom,
-    ShowLineForValue? showHorizontalLineForValue,
+    ShowLineForValueDouble? showHorizontalLineForValue,
     TextStyle? textStyle,
   }) : assert(
             textStyle != null ||

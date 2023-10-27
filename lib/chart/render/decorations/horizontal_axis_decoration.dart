@@ -9,12 +9,16 @@ enum HorizontalLegendPosition {
   end,
 }
 
-typedef AxisValueFromValue = String Function(double value);
+typedef AxisValueFromValue = String Function(int value);
+typedef AxisValueFromValueDouble = String Function(double value);
 
 /// Default axis generator, it will just take current index, convert it to string and return it.
-String defaultAxisValue(double index) => '$index';
+String defaultAxisValue(int index) => '$index';
 
-typedef ShowLineForValue = bool Function(double value);
+String defaultAxisValueDouble(double valueDouble) => '$valueDouble';
+
+typedef ShowLineForValue = bool Function(int value);
+typedef ShowLineForValueDouble = bool Function(double value);
 
 /// Decoration for drawing horizontal lines on the chart, decoration can add horizontal axis legend
 ///
@@ -33,7 +37,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
     this.lineWidth = 1.0,
     this.horizontalAxisUnit,
     this.dashArray,
-    this.axisValue = defaultAxisValue,
+    this.axisValue = defaultAxisValueDouble,
     this.axisStep = 1.0,
     this.textScale = 1.0,
     this.legendPosition = HorizontalLegendPosition.end,
@@ -56,7 +60,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
     this.axisStep = 1.0,
     this.dashArray,
     this.textScale = 1.0,
-    this.axisValue = defaultAxisValue,
+    this.axisValue = defaultAxisValueDouble,
     this.legendPosition = HorizontalLegendPosition.end,
     this.legendFontStyle = const TextStyle(fontSize: 12.0),
     required this.showLineForValue,
@@ -95,7 +99,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
   final HorizontalLegendPosition legendPosition;
 
   /// Generate horizontal axis legend from value steps
-  final AxisValueFromValue axisValue;
+  final AxisValueFromValueDouble axisValue;
 
   /// Label that is shown at the end of the chart on horizontal axis.
   /// This is usually to show measure unit used for axis
@@ -106,7 +110,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
 
   /// Function to have more fine grain control over when to show horizontal lines
   /// If this is not null [showLines] will be ignored
-  final ShowLineForValue? showLineForValue;
+  final ShowLineForValueDouble? showLineForValue;
 
   /// Set color to paint horizontal lines with
   final Color lineColor;
