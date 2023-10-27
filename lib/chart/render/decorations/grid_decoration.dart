@@ -7,6 +7,7 @@ class GridDecoration extends DecorationPainter {
   /// Make grid decoration for the chart
   ///
   /// Grid decoration is just merge of [HorizontalAxisDecoration] and [VerticalAxisDecoration]
+  /// Decoration for showing the text below the chart (Horizontal Decoration)
   GridDecoration({
     bool showHorizontalValues = false,
     bool showVerticalValues = false,
@@ -20,8 +21,11 @@ class GridDecoration extends DecorationPainter {
     EdgeInsets? verticalValuesPadding,
     EdgeInsets? horizontalValuesPadding,
     String? horizontalAxisUnit,
+
+    /// Use this property to modify the value format. This property function return the axis value index
     AxisValueFromValue verticalAxisValueFromIndex = defaultAxisValue,
-    AxisValueFromValue horizontalAxisValueFromValue = defaultAxisValue,
+    AxisValueFromValueDouble horizontalAxisValueFromValue =
+        defaultAxisValueDouble,
     Color gridColor = Colors.grey,
     double gridWidth = 1.0,
     List<double>? dashArray,
@@ -32,7 +36,7 @@ class GridDecoration extends DecorationPainter {
         HorizontalLegendPosition.end,
     VerticalLegendPosition verticalLegendPosition =
         VerticalLegendPosition.bottom,
-    ShowLineForValue? showHorizontalLineForValue,
+    ShowLineForValueDouble? showHorizontalLineForValue,
     TextStyle? textStyle,
   }) : assert(
             textStyle != null ||

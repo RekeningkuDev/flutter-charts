@@ -10,16 +10,22 @@ enum HorizontalLegendPosition {
 }
 
 typedef AxisValueFromValue = String Function(int value);
+typedef AxisValueFromValueDouble = String Function(double value);
 
 /// Default axis generator, it will just take current index, convert it to string and return it.
 String defaultAxisValue(int index) => '$index';
+String defaultAxisValueDouble(double index) => '$index';
 
 typedef ShowLineForValue = bool Function(int value);
+typedef ShowLineForValueDouble = bool Function(double value);
 
 /// Decoration for drawing horizontal lines on the chart, decoration can add horizontal axis legend
 ///
 /// This can be used if you don't need anything from [VerticalAxisDecoration], otherwise you might
 /// consider using [GridDecoration]
+///
+/// E.g if you use bar chart this decoration should be used to decorate the VERTICAL measurement of the chart
+/// Yes, you read it right. This class also used to decorate the Vertical Axis Measurement
 class HorizontalAxisDecoration extends DecorationPainter {
   /// Constructor for horizontal axis decoration
   HorizontalAxisDecoration({
@@ -33,7 +39,12 @@ class HorizontalAxisDecoration extends DecorationPainter {
     this.lineWidth = 1.0,
     this.horizontalAxisUnit,
     this.dashArray,
-    this.axisValue = defaultAxisValue,
+
+    /// Return entity value on function from the given chart state
+    /// In this property you can modify the formatting of the value
+    this.axisValue = defaultAxisValueDouble,
+
+    /// Property to take steps and skip some measurement value
     this.axisStep = 1.0,
     this.textScale = 1.0,
     this.legendPosition = HorizontalLegendPosition.end,
@@ -56,7 +67,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
     this.axisStep = 1.0,
     this.dashArray,
     this.textScale = 1.0,
-    this.axisValue = defaultAxisValue,
+    this.axisValue = defaultAxisValueDouble,
     this.legendPosition = HorizontalLegendPosition.end,
     this.legendFontStyle = const TextStyle(fontSize: 12.0),
     required this.showLineForValue,
@@ -95,7 +106,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
   final HorizontalLegendPosition legendPosition;
 
   /// Generate horizontal axis legend from value steps
-  final AxisValueFromValue axisValue;
+  final AxisValueFromValueDouble axisValue;
 
   /// Label that is shown at the end of the chart on horizontal axis.
   /// This is usually to show measure unit used for axis
@@ -106,7 +117,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
 
   /// Function to have more fine grain control over when to show horizontal lines
   /// If this is not null [showLines] will be ignored
-  final ShowLineForValue? showLineForValue;
+  final ShowLineForValueDouble? showLineForValue;
 
   /// Set color to paint horizontal lines with
   final Color lineColor;
@@ -146,7 +157,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
     final _maxValue = state.data.maxValue - state.data.minValue;
 
     for (var i = 0; i * axisStep <= _maxValue; i++) {
-      final _defaultValue = (axisStep * i + state.data.minValue).toInt();
+      final _defaultValue = (axisStep * i + state.data.minValue).toDouble();
       final _value = axisValue.call(_defaultValue);
       if ((_longestText?.length ?? 0) < _value.length) {
         _longestText = _value;
@@ -168,7 +179,7 @@ class HorizontalAxisDecoration extends DecorationPainter {
     final gridPath = Path();
 
     for (var i = 0; i * scale * axisStep <= scale * _maxValue; i++) {
-      final _defaultValue = (axisStep * i + state.data.minValue).toInt();
+      final _defaultValue = (axisStep * i + state.data.minValue).toDouble();
 
       final _isPositionStart = legendPosition == HorizontalLegendPosition.start;
       final _startLine = _isPositionStart
