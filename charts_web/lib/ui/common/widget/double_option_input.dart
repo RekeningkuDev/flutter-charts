@@ -17,7 +17,7 @@ class DoubleOptionInput extends HookWidget {
   final double? value;
 
   final double step;
-  final Function(double) onChanged;
+  final Function(double?) onChanged;
   final double defaultValue;
   final bool noInputField;
 
@@ -45,7 +45,7 @@ class DoubleOptionInput extends HookWidget {
                         const InputDecoration(filled: true, isDense: true),
                     controller: textEditingController,
                     onChanged: (value) {
-                      final newValue = double.parse(value);
+                      final newValue = double.tryParse(value);
                       onChanged(newValue);
                     },
                     style: Theme.of(context)
