@@ -23,6 +23,9 @@ typedef ShowLineForValueDouble = bool Function(double value);
 ///
 /// This can be used if you don't need anything from [VerticalAxisDecoration], otherwise you might
 /// consider using [GridDecoration]
+///
+/// E.g if you use bar chart this decoration should be used to decorate the VERTICAL measurement of the chart
+/// Yes, you read it right. This class also used to decorate the Vertical Axis Measurement
 class HorizontalAxisDecoration extends DecorationPainter {
   /// Constructor for horizontal axis decoration
   HorizontalAxisDecoration({
@@ -36,7 +39,12 @@ class HorizontalAxisDecoration extends DecorationPainter {
     this.lineWidth = 1.0,
     this.horizontalAxisUnit,
     this.dashArray,
+
+    /// Return entity value on function from the given chart state
+    /// In this property you can modify the formatting of the value
     this.axisValue = defaultAxisValueDouble,
+
+    /// Property to take steps and skip some measurement value
     this.axisStep = 1.0,
     this.textScale = 1.0,
     this.legendPosition = HorizontalLegendPosition.end,
